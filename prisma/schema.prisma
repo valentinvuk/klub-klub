@@ -11,9 +11,20 @@ datasource db {
 }
 
 model User {
-  id   String @id @default(uuid())
-  name String
-  role Role   @default(USER)
+  id              String           @id @default(uuid())
+  email           String           @unique
+  username        String           @unique
+  password        String
+  role            Role             @default(USER)
+  isActive        Boolean          @default(true)
+  UserRoleRequest UserRoleRequest?
+}
+
+model UserRoleRequest {
+  id     String @id @default(uuid())
+  role   Role
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 }
 
 enum Role {
