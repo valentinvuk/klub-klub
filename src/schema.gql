@@ -9,10 +9,26 @@ type UserType {
   isActive: Boolean!
 }
 
+type UserRoleRequestType {
+  id: ID!
+  user: UserType!
+}
+
 type Query {
   users: [UserType!]!
 }
 
 type Mutation {
-  changeUserStatus(userId: String!, isActive: Boolean!): UserType!
+  changeUserStatus(changeUserStatusInput: ChangeUserStatusInput!): UserType!
+  createUserRoleRequest(createUserRoleRequestInput: CreateUserRoleRequestInput!): UserRoleRequestType!
+}
+
+input ChangeUserStatusInput {
+  userId: String!
+  isActive: Boolean!
+}
+
+input CreateUserRoleRequestInput {
+  userId: String!
+  role: String!
 }
